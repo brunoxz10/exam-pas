@@ -1,18 +1,10 @@
 import json
 import pandas as pd
 from flask import Flask, jsonify, request
-#from utilities import predict_diabetes
+from utils import predict_approval
+import config
 
 app = Flask(__name__)
-
-# covariables = ['Pregnancies',
-#                'Glucose',
-#                'BloodPressure',
-#                'SkinThickness',
-#                'Insulin',
-#                'BMI',
-#                'DiabetesPedigreeFunction',
-#                'Age']
 
 df_scores = pd.read_parquet('../data/scores.parquet')
 
@@ -29,36 +21,32 @@ def filter_dataframe():
     return jsonify(result)
 
 
-# @app.route('/filter', methods=['GET']) 
-# def predict():
-#     data = request.json
-#     print(data)
-
-#     try:
-#         data = pd.DataFrame(data)
-#     except ValueError:
-#         data = pd.DataFrame([data])
-
-#     sample = data.values
-#     return jsonify(sample)
-
-#     # if list(data.columns) == covariables:
-#     #     try:
-#     #         sample = data.values
-#     #     except KeyError:
-#     #         return jsonify({'error':'Invalid input'})
-        
-#     #     predictions = predict_diabetes(sample)
-        
-#     #     try:
-#     #         result = jsonify(predictions)
-#     #     except TypeError as e:
-#     #         return jsonify({'error':str(e)})
-        
-#     #     return result
+@app.post('/predict') 
+def predict():
     
-#     # else:
-#     #     return jsonify({'error':'Invalid input'})
+    # this is a dictionary 
+    data = request.json
+    
+    input_features_valid = all([col in config.FEATURES for col in list(data.keys())])
+    
+    if not input_features_valid:
+        return jsonify({'error':'Invalid input'})
+        
+    predictions = predict_approval(data)
+        
+    try:
+        result = jsonify({'Output':f'A sua probabilidade de aprovação é {predictions}'})
+    
+    except TypeError as e:
+        return jsonify({'error':str(e)})
+        
+    return result
+    
+    # else:
+    #     return jsonify({'error':'Invalid input'})
+
+    #return jsonify(data)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
