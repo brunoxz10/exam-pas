@@ -39,5 +39,5 @@ class RandomForestClassifierGridSearch:
         return report
     
     def save_model(self, model_name):
-        with open(f'{model_name}.pickle','wb') as f:
+        with open(f'../ml_dev/models/{model_name}.pickle', 'wb') as f:
             pickle.dump(self.best_model, f)

@@ -23,7 +23,7 @@ RESULTS_COLUMN_NAMES = ['numero_inscricao',
                         'classificacao_final_publicas8',
                         'course']
 
-APPROVALS_PDF = "../data\Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf"                
+APPROVALS_PDF = "../data/Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf"                
 APPROVALS_COLUMNS_NAMES = ['nome',
                            'numero_inscricao',
                            'campus',

@@ -32,10 +32,10 @@ def predict():
     if not input_features_valid:
         return jsonify({'error':'Invalid input'})
         
-    predictions = predict_approval(data)
+    approval_prediction = predict_approval(data)
         
     try:
-        result = jsonify({'Output':f'A sua probabilidade de aprovação é {predictions}'})
+        result = jsonify({'Output':f'A sua probabilidade de aprovação é {approval_prediction}'})
     
     except TypeError as e:
         return jsonify({'error':str(e)})
