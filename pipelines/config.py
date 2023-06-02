@@ -1,5 +1,5 @@
-RESULTS_PDF = "../data/Ed_30_PAS_3_2020_2022_Res_Final_Tipo D_Redação.pdf"
-RESULTS_COLUMN_NAMES = ['numero_inscricao',
+SCORES_PDF = "../data/raw/Ed_30_PAS_3_2020_2022_Res_Final_Tipo D_Redação.pdf"
+SCORES_COLUMN_NAMES = ['numero_inscricao',
                         'nome',
                         'escore_bruto_p1_etapa1',
                         'escore_bruto_p2_etapa1',
@@ -23,7 +23,7 @@ RESULTS_COLUMN_NAMES = ['numero_inscricao',
                         'classificacao_final_publicas8',
                         'course']
 
-APPROVALS_PDF = "../data/Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf"                
+APPROVALS_PDF = "../data/raw/Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf"                
 APPROVALS_COLUMNS_NAMES = ['nome',
                            'numero_inscricao',
                            'campus',
