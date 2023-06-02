@@ -11,4 +11,3 @@ df_scores = get_results_dataframe(text_split_list)
 df_scores = rename_columns(df_scores, config.SCORES_COLUMN_NAMES)
 df_scores = strip_df(df_scores)
 df_scores.to_parquet('../data/processed/scores.parquet')
-

@@ -1,4 +1,5 @@
 SCORES_PDF = "../data/raw/Ed_30_PAS_3_2020_2022_Res_Final_Tipo D_Redação.pdf"
+#SCORES_PDF = "../data/raw/Ed_30_PAS_3_2019_2021_Res_Final_Tipo D_Redação.pdf"
 SCORES_COLUMN_NAMES = ['numero_inscricao',
                         'nome',
                         'escore_bruto_p1_etapa1',
