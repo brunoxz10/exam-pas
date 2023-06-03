@@ -3,6 +3,7 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.metrics import classification_report
 import pickle
 
+
 class RandomForestClassifierGridSearch:
     def __init__(self, X, y):
         self.X = X
