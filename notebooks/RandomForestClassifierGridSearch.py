@@ -7,11 +7,11 @@ class RandomForestClassifierGridSearch:
     def __init__(self, X, y):
         self.X = X
         self.y = y
-        self.model = RandomForestClassifier(random_state=47, class_weight={0:1, 1:5})
+        self.model = RandomForestClassifier(random_state=47)
         self.grid_search = None
         self.best_params = None
         self.best_model = None
-        self.stratified_kfold = StratifiedKFold(n_splits=4,
+        self.stratified_kfold = StratifiedKFold(n_splits=5,
                                                 shuffle=True,
                                                 random_state=47)
 
@@ -19,7 +19,7 @@ class RandomForestClassifierGridSearch:
         self.grid_search = GridSearchCV(
             estimator=self.model,
             param_grid=param_grid,
-            scoring='accuracy',
+            scoring='roc_auc', # accuracy before
             cv=self.stratified_kfold,
             n_jobs=-1
         )
