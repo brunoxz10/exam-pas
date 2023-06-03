@@ -2,6 +2,7 @@ import re
 from pypdf import PdfReader
 import pandas as pd
 import numpy as np
+from fuzzywuzzy import process
 
 
 def get_pdf_as_string(pdf_path: str) -> str:
@@ -94,4 +95,32 @@ def strip_df(df: pd.DataFrame) -> pd.DataFrame:
     df['numero_inscricao'] = df['numero_inscricao'].str.replace(' ', '')
     df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     df.replace('-', np.nan, inplace=True)
+    return df
+
+
+def delete_sub_judice_students(df: pd.DataFrame) -> pd.DataFrame:
+    return df[~df.course.str.contains('JUDICE')]
+
+  
+def correct_course_spelling_by_fuzzywuzzy(
+        df: pd.DataFrame,
+        course_names: list,
+        fuzzy_confidence_threshold: int,
+) -> pd.DataFrame:
+
+    def correct_spelling(value):
+        
+        corrected_value, confidence = process.extractOne(value, course_names)
+        # You can adjust the confidence threshold as needed
+        if confidence >= fuzzy_confidence_threshold:
+            return corrected_value
+        else:
+            return value
+
+    course_dict = {}
+    for course in df.course.unique():
+        course_dict[course] = correct_spelling(course)
+
+    df.course = df.course.map(course_dict)
+
     return df

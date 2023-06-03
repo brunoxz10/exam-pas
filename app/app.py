@@ -6,7 +6,7 @@ import config
 
 app = Flask(__name__)
 
-df_scores = pd.read_parquet('../data/scores.parquet')
+df_scores = pd.read_parquet('../data/processed/scores.parquet')
 
 @app.route('/filter', methods=['GET']) 
 def filter_dataframe():
@@ -28,9 +28,10 @@ def predict():
     data = request.json
     
     input_features_valid = all([col in config.FEATURES for col in list(data.keys())])
+    print([col in config.FEATURES for col in list(data.keys())])
     
     if not input_features_valid:
-        return jsonify({'error':'Invalid input'})
+        return jsonify({'error':'Invalid input features'})
         
     approval_prediction = predict_approval(data)
         

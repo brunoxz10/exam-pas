@@ -3,7 +3,7 @@ import pickle
 import config
 
 
-with open('../ml_dev/models/stratified_kfold_classweight15_tuned_model.pickle', 'rb') as f:
+with open('../ml_dev/models/stratified_kfold_classweight15_tuned_model_spelling.pickle', 'rb') as f:
     model = pickle.load(f)
 
 
