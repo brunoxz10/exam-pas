@@ -30,7 +30,7 @@ def clean_results(text: str) -> str:
 
 def split_results_by_course(text: str) -> list:
     # split by course
-    pattern = r'\. (?=[A-Z]|\d\.)'
+    pattern = r'\. {1,2}(?=[A-Z]|\d\.)'
     text_split = re.split(pattern=pattern, string=text)
     return text_split
 
