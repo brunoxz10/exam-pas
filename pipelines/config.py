@@ -123,3 +123,14 @@ COURSE_NAMES = ['DIURNO ADMINISTRAÇÃO (BACHARELADO)',
                 'TERAPIA OCUPACIONAL (BACHARELADO)',
                 'TURISMO (BACHARELADO)']
 FUZZY_CONFIDENCE_THRESHOLD = 85
+
+NUMERICAL_FEATURES = ['escore_bruto_p1_etapa1',
+                       'escore_bruto_p2_etapa1',
+                       'nota_redacao_etapa1',
+                       'escore_bruto_p1_etapa2',
+                       'escore_bruto_p2_etapa2',
+                       'nota_redacao_etapa2',
+                       'escore_bruto_p1_etapa3',
+                       'escore_bruto_p2_etapa3',
+                       'nota_redacao_etapa3',
+                       'argumento_final']
