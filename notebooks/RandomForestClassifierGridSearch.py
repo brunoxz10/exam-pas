@@ -12,7 +12,7 @@ class RandomForestClassifierGridSearch:
         self.grid_search = None
         self.best_params = None
         self.best_model = None
-        self.stratified_kfold = StratifiedKFold(n_splits=4,
+        self.stratified_kfold = StratifiedKFold(n_splits=3,
                                                 shuffle=True,
                                                 random_state=47)
 
@@ -20,7 +20,7 @@ class RandomForestClassifierGridSearch:
         self.grid_search = GridSearchCV(
             estimator=self.model,
             param_grid=param_grid,
-            scoring='accuracy',
+            scoring='roc_auc',
             cv=self.stratified_kfold,
             n_jobs=-1
         )
