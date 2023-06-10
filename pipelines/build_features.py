@@ -3,9 +3,7 @@ import pandas as pd
 import re 
 
 
-def add_cotas(df: pd.DataFrame) -> pd.DataFrame:
-    cotas_columns = [col for col in df.columns if 'classificacao' in col]
-    cotas_columns.pop(0) # removing 'classificacao_final_universal'
+def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
         
     df['cotista'] = df[cotas_columns].notnull().any(axis=1).astype(int)
     
@@ -13,6 +11,10 @@ def add_cotas(df: pd.DataFrame) -> pd.DataFrame:
         colum_name = re.sub("classificacao_final_", "", f'{column}_flag')
         df[colum_name] = df[column].notnull().astype(int)
     
+    publicas_flags = cotas_columns
+    publicas_flags.remove('classificacao_final_cotas_negros')
+    df['publicas_flag'] = df[publicas_flags].notnull().any(axis=1).astype(int)
+
     return df
 
 
@@ -30,13 +32,16 @@ def convert_string_to_float(df, colnames):
         df[colname] = df[colname].apply(float)
     return df
 
+
 def main():
-    scores = pd.read_parquet('../data/interim/scores.parquet')
-    approvals = pd.read_parquet('../data/interim/approvals.parquet')
-    scores = add_cotas(scores)
+    
+    scores = pd.read_parquet('../data/interim/scores_2020_2022.parquet')
+    approvals = pd.read_parquet('../data/interim/approvals_2020_2022.parquet')
+    scores = add_cotas_flags(scores, config.COTAS_COLUMNS)
     df = add_label(scores, approvals)
     df = convert_string_to_float(df, config.NUMERICAL_FEATURES)
-    df.to_parquet('../data/processed/scores_approvals.parquet')
+    df.to_parquet('../data/processed/scores_approvals_2020_2022.parquet')
+    
     return df
 
 

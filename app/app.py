@@ -6,7 +6,7 @@ import config
 
 app = Flask(__name__)
 
-df_scores = pd.read_parquet('../data/processed/scores.parquet')
+df_scores = pd.read_parquet('../data/processed/scores_approvals_2020_2022.parquet')
 
 @app.route('/filter', methods=['GET']) 
 def filter_dataframe():

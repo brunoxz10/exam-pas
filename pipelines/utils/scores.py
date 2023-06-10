@@ -43,6 +43,9 @@ def concatenate_numeros_inscricao(text_split: list) -> list:
     pattern = r"(\d{5})\s+(\d{3})"
     sections = [re.sub(pattern, r"\1\2", section.strip()) for section in sections]
 
+    pattern = r"(\d{7})\s+(\d{1})"
+    sections = [re.sub(pattern, r"\1\2", section.strip()) for section in sections]
+
     return sections
 
 
@@ -99,7 +102,7 @@ def strip_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def delete_sub_judice_students(df: pd.DataFrame) -> pd.DataFrame:
-    return df[~df.course.str.contains('JUDICE')]
+    return df[~df.course.str.contains('JUDICE|judice|candidatos')] # adding candidatos to fix urgently
 
   
 def correct_course_spelling_by_fuzzywuzzy(

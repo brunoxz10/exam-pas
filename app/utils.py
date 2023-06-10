@@ -3,7 +3,7 @@ import pickle
 import config
 
 
-with open('../ml_dev/models/stratified_kfold_classweight15_tuned_model_spelling.pickle', 'rb') as f:
+with open('../ml_dev/models/xgboost_2019_2022.pickle', 'rb') as f:
     model = pickle.load(f)
 
 
@@ -34,27 +34,27 @@ def predict_approval(new_data: pd.DataFrame):
 
 if __name__=="__main__":
 
-    sample_not_approved = {"escore_bruto_p1_etapa1": 5.172,
-                           "escore_bruto_p2_etapa1": 14.653,
-                           "nota_redacao_etapa1": 6.947,
-                           "escore_bruto_p1_etapa2": 3.845,
-                           "escore_bruto_p2_etapa2": 19.994,
-                           "nota_redacao_etapa2": 7.222,
-                           "escore_bruto_p1_etapa3": 4.998,
-                           "escore_bruto_p2_etapa3": 16.66,
-                           "nota_redacao_etapa3": 8.06,
-                           #"argumento_final": -25.699,
-                           "2.1.1 CAMPUS  DARCY RIBEIRO – DIURNO  ADMINISTRAÇÃO (BACHARELADO)": 1.0,               
-                           "cotista": 0.0,
-                           "cotas_negros_flag": 0.0,
-                           "publicas1_flag": 0.0,
-                           "publicas2_flag": 0.0,
-                           "publicas3_flag": 0.0,
-                           "publicas4_flag": 0.0,
-                           "publicas5_flag": 0.0,
-                           "publicas6_flag": 0.0,
-                           "publicas7_flag": 0.0,
-                           "publicas8_flag": 0.0}
+    sample_not_approved = {'escore_bruto_p1_etapa1': 3.448,
+                        'escore_bruto_p2_etapa1': 16.376,
+                        'nota_redacao_etapa1': 6.069,
+                        'escore_bruto_p1_etapa2': 4.614,
+                        'escore_bruto_p2_etapa2': 18.967,
+                        'nota_redacao_etapa2': 8.1,
+                        'escore_bruto_p1_etapa3': 3.094,
+                        'escore_bruto_p2_etapa3': 15.231,
+                        'nota_redacao_etapa3': 9.143,
+                        'cotista': 1.0,
+                        'cotas_negros_flag': 1.0,
+                        'publicas_flag': 0.0,
+                        'publicas1_flag': 0.0,
+                        'publicas2_flag': 0.0,
+                        'publicas3_flag': 0.0,
+                        'publicas4_flag': 0.0,
+                        'publicas5_flag': 0.0,
+                        'publicas6_flag': 0.0,
+                        'publicas7_flag': 0.0,
+                        'publicas8_flag': 0.0,
+                        'CIÊNCIA POLÍTICA (BACHARELADO)': 1.0}
     
     predictions = predict_approval(sample_not_approved)
     print(predictions)
