@@ -1,16 +1,24 @@
 import pandas as pd
+from pandas.api.types import CategoricalDtype
 import pickle
 import config
 
-
-with open('../ml_dev/models/xgboost_2019_2022.pickle', 'rb') as f:
+with open('../ml_dev/models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
     model = pickle.load(f)
+
+
+# def preprocess_input_features(features: dict) -> pd.DataFrame:
+#     new_sample = features
+#     new_sample = pd.DataFrame([{col: new_sample.get(col) for col in config.FEATURES}])
+#     new_sample = new_sample.fillna(0)
+#     return new_sample
 
 
 def preprocess_input_features(features: dict) -> pd.DataFrame:
     new_sample = features
-    new_sample = pd.DataFrame([{col: new_sample.get(col) for col in config.FEATURES}])
-    new_sample = new_sample.fillna(0)
+    new_sample = pd.DataFrame([new_sample])
+    cat_type = CategoricalDtype(categories=config.COURSE_NAMES)
+    new_sample.course = new_sample.course.astype(cat_type)
     return new_sample
 
 
@@ -35,26 +43,27 @@ def predict_approval(new_data: pd.DataFrame):
 if __name__=="__main__":
 
     sample_not_approved = {'escore_bruto_p1_etapa1': 3.448,
-                        'escore_bruto_p2_etapa1': 16.376,
-                        'nota_redacao_etapa1': 6.069,
-                        'escore_bruto_p1_etapa2': 4.614,
-                        'escore_bruto_p2_etapa2': 18.967,
-                        'nota_redacao_etapa2': 8.1,
-                        'escore_bruto_p1_etapa3': 3.094,
-                        'escore_bruto_p2_etapa3': 15.231,
-                        'nota_redacao_etapa3': 9.143,
-                        'cotista': 1.0,
-                        'cotas_negros_flag': 1.0,
-                        'publicas_flag': 0.0,
-                        'publicas1_flag': 0.0,
-                        'publicas2_flag': 0.0,
-                        'publicas3_flag': 0.0,
-                        'publicas4_flag': 0.0,
-                        'publicas5_flag': 0.0,
-                        'publicas6_flag': 0.0,
-                        'publicas7_flag': 0.0,
-                        'publicas8_flag': 0.0,
-                        'CIÊNCIA POLÍTICA (BACHARELADO)': 1.0}
+                            'escore_bruto_p2_etapa1': 16.376,
+                            'nota_redacao_etapa1': 6.069,
+                            'escore_bruto_p1_etapa2': 4.614,
+                            'escore_bruto_p2_etapa2': 18.967,
+                            'nota_redacao_etapa2': 8.1,
+                            'escore_bruto_p1_etapa3': 3.094,
+                            'escore_bruto_p2_etapa3': 15.231,
+                            'nota_redacao_etapa3': 9.143,
+                            'pseudo_argumento_final': 16.667166666666667,
+                            'cotista': 1,
+                            'cotas_negros_flag': 1,
+                            'publicas_flag': 0,
+                            'publicas1_flag': 0,
+                            'publicas2_flag': 0,
+                            'publicas3_flag': 0,
+                            'publicas4_flag': 0,
+                            'publicas5_flag': 0,
+                            'publicas6_flag': 0,
+                            'publicas7_flag': 0,
+                            'publicas8_flag': 0,
+                            'course': 'CIÊNCIA POLÍTICA (BACHARELADO)'}
     
     predictions = predict_approval(sample_not_approved)
     print(predictions)

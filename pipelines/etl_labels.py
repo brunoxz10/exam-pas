@@ -13,12 +13,12 @@ def label_wrapper(approvals_file_path):
     df_approvals = rename_columns(df_approvals, config.APPROVALS_COLUMNS_NAMES)
     return df_approvals
 
-df_2020_2022 = label_wrapper(config.APPROVALS_PDF[0])
-df_2020_2022.to_parquet('../data/interim/approvals_2020_2022.parquet')
+#df_2020_2022 = label_wrapper(config.APPROVALS_PDF[0])
+#df_2020_2022.to_parquet('../data/interim/approvals_2020_2022.parquet')
 
-#df_2019_2021 = pd.concat([label_wrapper(config.APPROVALS_PDF[1]), label_wrapper(config.APPROVALS_PDF[2])])
-df_2019_2021 = label_wrapper(config.APPROVALS_PDF[1])
-df_2019_2021.to_parquet('../data/interim/approvals_2019_2021.parquet')
+df_2019_2021 = pd.concat([label_wrapper(config.APPROVALS_PDF[1]), label_wrapper(config.APPROVALS_PDF[2])])
+#df_2019_2021 = label_wrapper(config.APPROVALS_PDF[1])
+df_2019_2021.to_parquet('../data/interim/approvals_2019_2021_new.parquet')
 
 #df_2018_2020 = label_wrapper(config.APPROVALS_PDF[3])
 #df_2018_2020.to_parquet('../data/interim/approvals_2018_2020.parquet')

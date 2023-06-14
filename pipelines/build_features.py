@@ -33,14 +33,25 @@ def convert_string_to_float(df, colnames):
     return df
 
 
+def add_pseudo_argumento_final(df):
+    df["pseudo_argumento_final"] = (
+        df["escore_bruto_p2_etapa1"]
+        + 2 * df["escore_bruto_p2_etapa2"]
+        + 3 * df["escore_bruto_p2_etapa3"]
+    ) / 6
+
+    return df
+
+
 def main():
     
-    scores = pd.read_parquet('../data/interim/scores_2020_2022.parquet')
-    approvals = pd.read_parquet('../data/interim/approvals_2020_2022.parquet')
+    scores = pd.read_parquet('../data/interim/scores_2019_2021.parquet')
+    approvals = pd.read_parquet('../data/interim/approvals_2019_2021_new.parquet')
     scores = add_cotas_flags(scores, config.COTAS_COLUMNS)
     df = add_label(scores, approvals)
     df = convert_string_to_float(df, config.NUMERICAL_FEATURES)
-    df.to_parquet('../data/processed/scores_approvals_2020_2022.parquet')
+    df = add_pseudo_argumento_final(df)
+    df.to_parquet('../data/processed/scores_approvals_2019_2021_new.parquet')
     
     return df
 

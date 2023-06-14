@@ -2,7 +2,6 @@ import json
 import pandas as pd
 from flask import Flask, jsonify, request
 from utils import predict_approval
-import config
 
 app = Flask(__name__)
 
@@ -27,11 +26,11 @@ def predict():
     # this is a dictionary 
     data = request.json
     
-    input_features_valid = all([col in config.FEATURES for col in list(data.keys())])
-    print([col in config.FEATURES for col in list(data.keys())])
+    # input_features_valid = all([col in config.FEATURES for col in list(data.keys())])
+    # print([col in config.FEATURES for col in list(data.keys())])
     
-    if not input_features_valid:
-        return jsonify({'error':'Invalid input features'})
+    # if not input_features_valid:
+    #     return jsonify({'error':'Invalid input features'})
         
     approval_prediction = predict_approval(data)
         
@@ -43,11 +42,6 @@ def predict():
         
     return result
     
-    # else:
-    #     return jsonify({'error':'Invalid input'})
-
-    #return jsonify(data)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
