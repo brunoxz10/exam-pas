@@ -34,4 +34,6 @@ O formato do input deve seguir a seguinte estrutura:
 }
 ```
 
+![post_example](reports/figures/post_example.PNG)  
+
 Mais informações sobre o significado de cada covariável ainda serão detalhadas, no futuro.
