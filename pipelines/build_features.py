@@ -43,15 +43,51 @@ def add_pseudo_argumento_final(df):
     return df
 
 
+def get_approved_stats(df: pd.DataFrame):
+    df_approved = df[df.label == 1]
+    approved_stats = df_approved.groupby(["course"], as_index=False).agg(
+        {"pseudo_argumento_final": ["mean", "median", "min", "max", "std"]}
+    )
+    approved_stats.columns = ["course", "mean", "median", "min", "max", "std"]
+    approved_stats = approved_stats.sort_values(
+        ["median"], ascending=False
+    ).reset_index(drop=True)
+
+    return approved_stats
+
+
+def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame:
+    
+    df = pd.merge(df, df_stats, on='course', how='left')
+    df['dist_min'] = df['pseudo_argumento_final'] > df['min']
+    df['dist_max'] = df['pseudo_argumento_final'] > df['max']
+    df['dist_median'] = df['pseudo_argumento_final'] > df['median']
+    df['dist_mean'] = df['pseudo_argumento_final'] > df['mean']
+
+    return df
+
+
 def main():
     
-    scores = pd.read_parquet('../data/interim/scores_2019_2021.parquet')
-    approvals = pd.read_parquet('../data/interim/approvals_2019_2021_complete.parquet')
+    scores_file_path = '../data/interim/scores_2020_2022.parquet'
+    approvals_file_path = '../data/interim/approvals_2020_2022_complete.parquet'
+    
+    scores = pd.read_parquet(scores_file_path)
+    approvals = pd.read_parquet(approvals_file_path)
     scores = add_cotas_flags(scores, config.COTAS_COLUMNS)
     df = add_label(scores, approvals)
     df = convert_string_to_float(df, config.NUMERICAL_FEATURES)
     df = add_pseudo_argumento_final(df)
-    df.to_parquet('../data/processed/scores_approvals_2019_2021_complete.parquet')
+
+    if ['2019_2021' in path for path in [scores_file_path, approvals_file_path]]:
+        approved_stats = get_approved_stats(df)
+        approved_stats.to_parquet('../data/interim/approved_stats_2019_2021.parquet')
+            
+    elif ['2020_2022' in path for path in [scores_file_path, approvals_file_path]]:
+        approved_stats = pd.read_parquet('../data/interim/approved_stats_2019_2021.parquet')
+            
+    df = add_stats_features(df, approved_stats)
+    df.to_parquet('../data/processed/scores_approvals_2020_2022.parquet')
     
     return df
 

@@ -3,6 +3,7 @@ from pandas.api.types import CategoricalDtype
 import pickle
 import config
 
+
 with open('../ml_dev/models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
     model = pickle.load(f)
 
@@ -42,28 +43,32 @@ def predict_approval(new_data: pd.DataFrame):
 
 if __name__=="__main__":
 
-    sample_not_approved = {'escore_bruto_p1_etapa1': 3.448,
-                            'escore_bruto_p2_etapa1': 16.376,
-                            'nota_redacao_etapa1': 6.069,
-                            'escore_bruto_p1_etapa2': 4.614,
-                            'escore_bruto_p2_etapa2': 18.967,
-                            'nota_redacao_etapa2': 8.1,
-                            'escore_bruto_p1_etapa3': 3.094,
-                            'escore_bruto_p2_etapa3': 15.231,
-                            'nota_redacao_etapa3': 9.143,
-                            'pseudo_argumento_final': 16.667166666666667,
-                            'cotista': 1,
-                            'cotas_negros_flag': 1,
-                            'publicas_flag': 0,
-                            'publicas1_flag': 0,
-                            'publicas2_flag': 0,
-                            'publicas3_flag': 0,
-                            'publicas4_flag': 0,
-                            'publicas5_flag': 0,
-                            'publicas6_flag': 0,
-                            'publicas7_flag': 0,
-                            'publicas8_flag': 0,
-                            'course': 'CIÊNCIA POLÍTICA (BACHARELADO)'}
-    
-    predictions = predict_approval(sample_not_approved)
+    sample_approved = {
+                    "escore_bruto_p1_etapa1": 6.034,
+                    "escore_bruto_p2_etapa1": 64.65,
+                    #"nota_redacao_etapa1": 9.733,
+                    "escore_bruto_p1_etapa2": 3.845,
+                    "escore_bruto_p2_etapa2": 63.826,
+                    #"nota_redacao_etapa2": 9.933,
+                    "escore_bruto_p1_etapa3": 7.14,
+                    "escore_bruto_p2_etapa3": 76.636,
+                    #"nota_redacao_etapa3": 9.931,
+                    "pseudo_argumento_final": 70.36833333333334,
+                    "dist_min": True,
+                    "dist_median": True,
+                    #"cotista": 0,
+                    "cotas_negros_flag": 0,
+                    #"publicas_flag": 0,
+                    "publicas1_flag": 0,
+                    "publicas2_flag": 0,
+                    "publicas3_flag": 0,
+                    "publicas4_flag": 0,
+                    "publicas5_flag": 0,
+                    "publicas6_flag": 0,
+                    "publicas7_flag": 0,
+                    "publicas8_flag": 0,
+                    "course": "MEDICINA (BACHARELADO)"
+                    }
+                        
+    predictions = predict_approval(sample_approved)
     print(predictions)
