@@ -14,11 +14,9 @@ def label_wrapper(approvals_file_path):
     return df_approvals
 
 df_2020_2022 = pd.concat([label_wrapper(config.APPROVALS_PDF[0]), label_wrapper(config.APPROVALS_PDF[1])])
-#df_2020_2022 = label_wrapper(config.APPROVALS_PDF[0])
 df_2020_2022.to_parquet('../data/interim/approvals_2020_2022_complete.parquet')
 
 df_2019_2021 = pd.concat([label_wrapper(config.APPROVALS_PDF[2]), label_wrapper(config.APPROVALS_PDF[3])])
-#df_2019_2021 = label_wrapper(config.APPROVALS_PDF[1])
 df_2019_2021.to_parquet('../data/interim/approvals_2019_2021_complete.parquet')
 
 #df_2018_2020 = label_wrapper(config.APPROVALS_PDF[3])

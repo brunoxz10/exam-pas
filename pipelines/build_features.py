@@ -59,10 +59,10 @@ def get_approved_stats(df: pd.DataFrame):
 def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame:
     
     df = pd.merge(df, df_stats, on='course', how='left')
-    df['dist_min'] = df['pseudo_argumento_final'] > df['min']
-    df['dist_max'] = df['pseudo_argumento_final'] > df['max']
-    df['dist_median'] = df['pseudo_argumento_final'] > df['median']
-    df['dist_mean'] = df['pseudo_argumento_final'] > df['mean']
+    df['min_flag'] = df['pseudo_argumento_final'] > df['min']
+    df['max_flag'] = df['pseudo_argumento_final'] > df['max']
+    df['median_flag'] = df['pseudo_argumento_final'] > df['median']
+    df['mean_flag'] = df['pseudo_argumento_final'] > df['mean']
 
     return df
 
