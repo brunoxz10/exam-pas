@@ -10,7 +10,7 @@ def delete_page_titles(text: str) -> str:
 def split_results_by_student(text: str) -> list:
     # split by student, there is a weird formattion near Ciencias Ambientais
     # so we consider that
-    pattern = r'  \n(?!Ciências Ambientais)'
+    pattern = r'  \n(?!Ciências Ambientais|Pedagogia)'
     text_split = re.split(pattern=pattern, string=text)
     return text_split
 

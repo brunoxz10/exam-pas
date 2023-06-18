@@ -46,12 +46,12 @@ def add_pseudo_argumento_final(df):
 def main():
     
     scores = pd.read_parquet('../data/interim/scores_2019_2021.parquet')
-    approvals = pd.read_parquet('../data/interim/approvals_2019_2021_new.parquet')
+    approvals = pd.read_parquet('../data/interim/approvals_2019_2021_complete.parquet')
     scores = add_cotas_flags(scores, config.COTAS_COLUMNS)
     df = add_label(scores, approvals)
     df = convert_string_to_float(df, config.NUMERICAL_FEATURES)
     df = add_pseudo_argumento_final(df)
-    df.to_parquet('../data/processed/scores_approvals_2019_2021_new.parquet')
+    df.to_parquet('../data/processed/scores_approvals_2019_2021_complete.parquet')
     
     return df
 
