@@ -70,7 +70,7 @@ def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame
 def main():
     
     scores_file_path = '../data/interim/scores_2020_2022.parquet'
-    approvals_file_path = '../data/interim/approvals_2020_2022_complete.parquet'
+    approvals_file_path = '../data/interim/approvals_2020_2022.parquet'
     
     scores = pd.read_parquet(scores_file_path)
     approvals = pd.read_parquet(approvals_file_path)
