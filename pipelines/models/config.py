@@ -1,41 +1,29 @@
-SCORES_PDF = ["../data/raw/2020_2022/Ed_30_PAS_3_2020_2022_Res_Final_Tipo D_Redação.pdf",
-              "../data/raw/2019_2021/Ed_30_PAS_3_2019_2021_Res_Final_Tipo D_Redação.pdf",
-              "../data/raw/2018_2020/ED_37_PAS_3 _2018 -2020_Final_Tipo_D_Redacao.pdf"]
-SCORES_COLUMN_NAMES = ['numero_inscricao',
-                        'nome',
-                        'escore_bruto_p1_etapa1',
-                        'escore_bruto_p2_etapa1',
-                        'nota_redacao_etapa1',
-                        'escore_bruto_p1_etapa2',
-                        'escore_bruto_p2_etapa2',
-                        'nota_redacao_etapa2',
-                        'escore_bruto_p1_etapa3',
-                        'escore_bruto_p2_etapa3',
-                        'nota_redacao_etapa3',
-                        'argumento_final',
-                        'classificacao_final_universal',
-                        'classificacao_final_cotas_negros',
-                        'classificacao_final_publicas1',
-                        'classificacao_final_publicas2',
-                        'classificacao_final_publicas3',
-                        'classificacao_final_publicas4',
-                        'classificacao_final_publicas5',
-                        'classificacao_final_publicas6',
-                        'classificacao_final_publicas7',
-                        'classificacao_final_publicas8',
-                        'course']
-
-APPROVALS_PDF = ["../data/raw/2020_2022/Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf",
-                 "../data/raw/2020_2022/Ed_46_PAS_3_2020_2022_Rel_Prov_RA_1ª_Chamada_2º_Semestre.pdf",
-                 "../data/raw/2019_2021/Ed_35_PAS_3_2019_2021_Rel_Final_Registro_1ª_Chamada.pdf",
-                 "../data/raw/2019_2021/Ed_50_PAS_3_2019_2021_Rel_Final_RA_1ª_Chamada_2º_Semestre.pdf",
-                 "../data/raw/2018_2020/ED_41_PAS_3 _2018 -2020_Rel_Final_Registro_1ª_Chamada.pdf"]
-
-APPROVALS_COLUMNS_NAMES = ['nome',
-                           'numero_inscricao',
-                           'campus',
-                           'curso',
-                           'periodo']
+FEATURES = ['escore_bruto_p1_etapa1',
+            'escore_bruto_p2_etapa1',
+            #'nota_redacao_etapa1',
+            'escore_bruto_p1_etapa2',
+            'escore_bruto_p2_etapa2',
+            #'nota_redacao_etapa2',
+            'escore_bruto_p1_etapa3',
+            'escore_bruto_p2_etapa3',
+            #'nota_redacao_etapa3',
+            'pseudo_argumento_final',
+            'min_flag',
+            'median_flag',
+            #'dist_max',
+            #'dist_mean',
+            #'cotista',
+            'cotas_negros_flag',
+            #'publicas_flag',
+            'publicas1_flag',
+            'publicas2_flag',
+            'publicas3_flag',
+            'publicas4_flag',
+            'publicas5_flag',
+            'publicas6_flag',
+            'publicas7_flag',
+            'publicas8_flag',
+            'course']
 
 COURSE_NAMES = ['DIURNO ADMINISTRAÇÃO (BACHARELADO)',
                 'NOTURNO ADMINISTRAÇÃO (BACHARELADO)',
@@ -128,25 +116,20 @@ COURSE_NAMES = ['DIURNO ADMINISTRAÇÃO (BACHARELADO)',
                 'TEORIA, CRÍTICA E HISTÓRIA DA ARTE (BACHARELADO)',
                 'TERAPIA OCUPACIONAL (BACHARELADO)',
                 'TURISMO (BACHARELADO)']
-FUZZY_CONFIDENCE_THRESHOLD = 85
 
-NUMERICAL_FEATURES = ['escore_bruto_p1_etapa1',
-                      'escore_bruto_p2_etapa1',
-                      'nota_redacao_etapa1',
-                      'escore_bruto_p1_etapa2',
-                      'escore_bruto_p2_etapa2',
-                      'nota_redacao_etapa2',
-                      'escore_bruto_p1_etapa3',
-                      'escore_bruto_p2_etapa3',
-                      'nota_redacao_etapa3',
-                      'argumento_final']
+HYPERPARAMETERS = {
+    'booster': 'gbtree',
+    'tree_method': 'hist',
+    #'max_bin': 300,
+    'n_estimators': 300,
+    'eta': 0.1,                        # Learning rate
+    'max_depth': 8,                   # Maximum depth of a tree
+    'subsample': 0.7,                  # Subsample ratio of the training instances
+    #'colsample_bytree': 0.8,          # Subsample ratio of columns when constructing each tree
+    #'scale_pos_weight': class_ratio,
+    'scale_pos_weight': 2,
+    'gamma': 5,
+    'lambda': 3}
 
-COTAS_COLUMNS =  ['classificacao_final_cotas_negros',
-                  'classificacao_final_publicas1',
-                  'classificacao_final_publicas2',
-                  'classificacao_final_publicas3',
-                  'classificacao_final_publicas4',
-                  'classificacao_final_publicas5',
-                  'classificacao_final_publicas6',
-                  'classificacao_final_publicas7',
-                  'classificacao_final_publicas8']
+# constraints from features escore_bruto_p1_etapa1 to cotas_negros_flag
+MONOTONE_CONSTRAINTS = '(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)'

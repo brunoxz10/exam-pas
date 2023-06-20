@@ -2,10 +2,12 @@ import json
 import pandas as pd
 from flask import Flask, jsonify, request
 from utils import predict_approval
+import config
 
 app = Flask(__name__)
 
-df_scores = pd.read_parquet('../data/processed/scores_approvals_2020_2022.parquet')
+df_scores = pd.read_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
+df_scores = df_scores[config.RESULTS_INFO]
 
 @app.route('/filter', methods=['GET']) 
 def filter_dataframe():
