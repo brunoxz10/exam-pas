@@ -41,7 +41,7 @@ X_test['median_flag'] = X_test['median_flag'].astype("category")
 
 # Create an XGBoost classifier
 model = xgb.XGBClassifier(**config.HYPERPARAMETERS,
-                          monotone_constraints='(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)',
+                          monotone_constraints=config.MONOTONE_CONSTRAINTS,
                           enable_categorical=True)
 
 # Fit the model to the training data

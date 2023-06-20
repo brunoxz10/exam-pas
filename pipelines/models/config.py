@@ -130,3 +130,6 @@ HYPERPARAMETERS = {
     'scale_pos_weight': 2,
     'gamma': 5,
     'lambda': 3}
+
+# constraints from features escore_bruto_p1_etapa1 to cotas_negros_flag
+MONOTONE_CONSTRAINTS = '(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)'
