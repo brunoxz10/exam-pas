@@ -19,11 +19,11 @@ def main():
 
     df_2020_2022 = pd.concat([label_convocation_wrapper(config.CONVOCATIONS_FILES[0]),
                               label_convocation_wrapper(config.CONVOCATIONS_FILES[1])])
-    df_2020_2022.to_parquet('../data/interim/approvals_convocation_2020_2022.parquet')
+    df_2020_2022.to_parquet('../../data/interim/approvals_convocation_2020_2022.parquet')
 
     df_2019_2021 = pd.concat([label_convocation_wrapper(config.CONVOCATIONS_FILES[2]),
                               label_convocation_wrapper(config.CONVOCATIONS_FILES[3])])
-    df_2019_2021.to_parquet('../data/interim/approvals_convocation_2019_2021.parquet')
+    df_2019_2021.to_parquet('../../data/interim/approvals_convocation_2019_2021.parquet')
 
 
 if __name__ == '__main__':

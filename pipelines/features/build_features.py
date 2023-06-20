@@ -82,24 +82,24 @@ def build_features_wrapper(scores_file_path, approvals_file_path):
 def main():
     
     # building features for data from subprograma 2019-2021
-    scores_file_path = '../data/interim/scores_2019_2021.parquet'
-    approvals_file_path = '../data/interim/approvals_convocation_2019_2021.parquet'
+    scores_file_path = '../../data/interim/scores_2019_2021.parquet'
+    approvals_file_path = '../../data/interim/approvals_convocation_2019_2021.parquet'
     
     df = build_features_wrapper(scores_file_path, approvals_file_path)
     approved_stats = get_approved_stats(df)
-    approved_stats.to_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')
+    approved_stats.to_parquet('../../data/interim/approved_stats_convocation_2019_2021.parquet')
     df = add_stats_features(df, approved_stats)
-    df.to_parquet('../data/processed/scores_approvals_convocation_2019_2021.parquet')
+    df.to_parquet('../../data/processed/scores_approvals_convocation_2019_2021.parquet')
 
     
     # building features for data from subprograma 2020-2022
-    scores_file_path = '../data/interim/scores_2020_2022.parquet'
-    approvals_file_path = '../data/interim/approvals_convocation_2020_2022.parquet'
+    scores_file_path = '../../data/interim/scores_2020_2022.parquet'
+    approvals_file_path = '../../data/interim/approvals_convocation_2020_2022.parquet'
     
     df = build_features_wrapper(scores_file_path, approvals_file_path)
-    approved_stats = pd.read_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')          
+    approved_stats = pd.read_parquet('../../data/interim/approved_stats_convocation_2019_2021.parquet')          
     df = add_stats_features(df, approved_stats)
-    df.to_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
+    df.to_parquet('../../data/processed/scores_approvals_convocation_2020_2022.parquet')
 
     
 if __name__ == '__main__':
