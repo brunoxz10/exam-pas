@@ -37,6 +37,16 @@ APPROVALS_COLUMNS_NAMES = ['nome',
                            'curso',
                            'periodo']
 
+CONVOCATIONS_FILES = ['../data/raw/2020_2022/Ed_31_PAS_3_2020_2022_Conv_RA_1ª_Chamada.pdf',
+                      '../data/raw/2020_2022/Ed_45_PAS_3_2020_2022_Conv_RA_1ª_Chamada_2º_Semestre.pdf',
+                      '../data/raw/2019_2021/Ed_31_PAS_3_2019_2021_Conv_Registro_1ª_Chamada.pdf',
+                      '../data/raw/2019_2021/Ed_47_PAS_3_2019_2021_Conv_RA_1ª_Chamada_2º_Semestre.pdf']
+
+CONVOCATIONS_COLUMNS_NAMES = ['numero_inscricao',
+                             'nome',
+                             'sistema_subsistema',
+                             'curso']
+
 COURSE_NAMES = ['DIURNO ADMINISTRAÇÃO (BACHARELADO)',
                 'NOTURNO ADMINISTRAÇÃO (BACHARELADO)',
                 'CAMPUS UNB CEILÂNDIA (FCE) ENFERMAGEM (BACHARELADO)',

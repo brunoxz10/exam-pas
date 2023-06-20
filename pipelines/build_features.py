@@ -11,7 +11,7 @@ def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
         colum_name = re.sub("classificacao_final_", "", f'{column}_flag')
         df[colum_name] = df[column].notnull().astype(int)
     
-    publicas_flags = cotas_columns
+    publicas_flags = cotas_columns.copy()
     publicas_flags.remove('classificacao_final_cotas_negros')
     df['publicas_flag'] = df[publicas_flags].notnull().any(axis=1).astype(int)
 
@@ -67,10 +67,7 @@ def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame
     return df
 
 
-def main():
-    
-    scores_file_path = '../data/interim/scores_2020_2022.parquet'
-    approvals_file_path = '../data/interim/approvals_2020_2022_complete.parquet'
+def build_features_wrapper(scores_file_path, approvals_file_path):
     
     scores = pd.read_parquet(scores_file_path)
     approvals = pd.read_parquet(approvals_file_path)
@@ -79,18 +76,31 @@ def main():
     df = convert_string_to_float(df, config.NUMERICAL_FEATURES)
     df = add_pseudo_argumento_final(df)
 
-    if ['2019_2021' in path for path in [scores_file_path, approvals_file_path]]:
-        approved_stats = get_approved_stats(df)
-        approved_stats.to_parquet('../data/interim/approved_stats_2019_2021.parquet')
-            
-    elif ['2020_2022' in path for path in [scores_file_path, approvals_file_path]]:
-        approved_stats = pd.read_parquet('../data/interim/approved_stats_2019_2021.parquet')
-            
-    df = add_stats_features(df, approved_stats)
-    df.to_parquet('../data/processed/scores_approvals_2020_2022.parquet')
-    
     return df
 
 
+def main():
+    
+    # building features for data from subprograma 2019-2021
+    scores_file_path = '../data/interim/scores_2019_2021.parquet'
+    approvals_file_path = '../data/interim/approvals_convocation_2019_2021.parquet'
+    
+    df = build_features_wrapper(scores_file_path, approvals_file_path)
+    approved_stats = get_approved_stats(df)
+    approved_stats.to_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')
+    df = add_stats_features(df, approved_stats)
+    df.to_parquet('../data/processed/scores_approvals_convocation_2019_2021.parquet')
+
+    
+    # building features for data from subprograma 2020-2022
+    scores_file_path = '../data/interim/scores_2020_2022.parquet'
+    approvals_file_path = '../data/interim/approvals_convocation_2020_2022.parquet'
+    
+    df = build_features_wrapper(scores_file_path, approvals_file_path)
+    approved_stats = pd.read_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')          
+    df = add_stats_features(df, approved_stats)
+    df.to_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
+
+    
 if __name__ == '__main__':
     main()
