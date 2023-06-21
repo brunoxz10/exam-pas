@@ -16,17 +16,16 @@ df2 = pd.read_parquet('../../data/processed/scores_approvals_convocation_2019_20
 
 # Converting course feature according to pre defined categories
 cat_type = CategoricalDtype(categories=config.COURSE_NAMES)
-
 df['course'] = df['course'].astype(cat_type)
 df2['course'] = df2['course'].astype(cat_type)
 
 # Shuffling both dataframes
-shuffled_df = df.sample(frac=1, random_state=42)
+df_shuffled = df.sample(frac=1, random_state=42)
 df2_shuffled = df2.sample(frac=1, random_state=42)
 
 # Splitting traning and test data, only 2020-2022 data for test
-X = shuffled_df[config.FEATURES] # features
-y = shuffled_df['label'] # labels
+X = df_shuffled[config.FEATURES] # features
+y = df_shuffled['label'] # labels
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=47) 
 
 # Setting final training data, adding 2019-2022 data
@@ -34,10 +33,9 @@ X_train = pd.concat([X_train, df2_shuffled[config.FEATURES]])
 y_train = pd.concat([y_train, df2_shuffled['label']])
 
 # Final processing for flags features
-X_train['min_flag'] = X_train['min_flag'].astype("category")
-X_train['median_flag'] = X_train['median_flag'].astype("category")
-X_test['min_flag'] = X_test['min_flag'].astype("category")
-X_test['median_flag'] = X_test['median_flag'].astype("category")
+FEATURES_FLAGS = ['min_flag', 'median_flag']
+X_train[FEATURES_FLAGS] = X_train[FEATURES_FLAGS].astype('category')
+X_test[FEATURES_FLAGS] = X_test[FEATURES_FLAGS].astype('category')
 
 # Create an XGBoost classifier
 model = xgb.XGBClassifier(**config.HYPERPARAMETERS,

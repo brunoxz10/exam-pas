@@ -2,7 +2,6 @@ import config
 from utils.scores import get_pdf_as_string, rename_columns
 from utils.labels_convocation import *
 
-print(config.CONVOCATIONS_FILES) 
 
 def label_convocation_wrapper(approvals_file_path):
     text = get_pdf_as_string(approvals_file_path)
