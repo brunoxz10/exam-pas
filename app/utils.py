@@ -38,7 +38,7 @@ def predict_approval(new_data: pd.DataFrame):
     #for t, pred in zip(new_data, predictions):
     #    data.append({'prediction': pred[0]})
 
-    return f'{round(approval_prob*100, ndigits=1)}%'
+    return round(float(approval_prob), ndigits=2)
 
 
 if __name__=="__main__":

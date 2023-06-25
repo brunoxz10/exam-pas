@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from flask import Flask, jsonify, request
 from utils import predict_approval
+import datetime
 import config
 
 app = Flask(__name__)
@@ -25,22 +26,17 @@ def filter_dataframe():
 @app.post('/predict') 
 def predict():
     
-    # this is a dictionary 
+    # this is a python dictionary 
     data = request.json
-    
-    # input_features_valid = all([col in config.FEATURES for col in list(data.keys())])
-    # print([col in config.FEATURES for col in list(data.keys())])
-    
-    # if not input_features_valid:
-    #     return jsonify({'error':'Invalid input features'})
-        
+           
     approval_prediction = predict_approval(data)
         
     try:
-        result = jsonify({'Output':f'A sua probabilidade de aprovação é {approval_prediction}'})
+        result = jsonify({'metadata': {"timestamp": str(datetime.datetime.now())},
+                          'prediction': {"probability": approval_prediction}})
     
     except TypeError as e:
-        return jsonify({'error':str(e)})
+        return jsonify({'error': str(e)})
         
     return result
     
