@@ -1,5 +1,7 @@
 # exam-pas
 
+![PAS_logo](reports/figures/PAS_logo.jpeg)
+
 Este é o repositório do projeto **Exame PAS**. É uma ferramenta - destinada aos estudantes que irão prestar esse exame ou já iniciaram alguma das etapas - capaz de fornecer uma probabilidade de aprovação dado o curso desejado, se é cotista e preferencialmente notas das duas primeiras etapas.
 
 Os dados estão originalmente presentes em *https://www.cebraspe.org.br/pas/subprogramas*, todos em formato .pdf e foram tratados por expressões regulares. Pelo site citado, é possível obter os resultados em cada etapa por meio dos documentos com o título **Resultado final nos itens do tipo D, o resultado final na prova de redação em Língua Portuguesa e o resultado final dos candidatos não eliminados na terceira etapa**. Em relação os dados dos aprovados, o documento que faz mais sentido utilizar é o identificado por **Convocação, em primeira chamada, para o registro acadêmico on-line dos candidatos selecionados dentro do quantitativo de vagas para o primeiro (ou segundo) semestre**, pois possui a lista de aprovados logo após a apuração dos resultados. Então, aprovados que eventualmente desistiram de ingressar por qualquer motivo, e.g., passaram em outra universidade, são considerados.
