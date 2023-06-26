@@ -34,4 +34,4 @@ O formato do input deve seguir a seguinte estrutura:
 }
 ```
 
-![post_example](reports/figures/post_example.PNG)
+![post_example](reports/figures/prediction_post_example.PNG)
