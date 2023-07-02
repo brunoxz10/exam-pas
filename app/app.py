@@ -4,8 +4,10 @@ from flask import Flask, jsonify, request
 from utils import predict_approval
 import datetime
 import config
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 df_scores = pd.read_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
 df_scores = df_scores[config.RESULTS_INFO]
