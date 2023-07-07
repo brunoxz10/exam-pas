@@ -3,24 +3,38 @@ from pandas.api.types import CategoricalDtype
 import pickle
 import config
 
+import sys
+sys.path.append("../pipelines/")
+from models.config import FEATURES as MODEL_FEATURES
+from features.build_features import add_stats_features, add_pseudo_argumento_final
+
 
 with open('models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
     model = pickle.load(f)
 
 
-# def preprocess_input_features(features: dict) -> pd.DataFrame:
-#     new_sample = features
-#     new_sample = pd.DataFrame([{col: new_sample.get(col) for col in config.FEATURES}])
-#     new_sample = new_sample.fillna(0)
-#     return new_sample
+approved_stats = pd.read_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')
 
-
-def preprocess_input_features(features: dict) -> pd.DataFrame:
-    new_sample = features
+def preprocess_input_features2(user_features: dict, model_features: list) -> pd.DataFrame:
+    new_sample = user_features
     new_sample = pd.DataFrame([new_sample])
+
+    new_sample = add_pseudo_argumento_final(new_sample)
+    new_sample = add_stats_features(new_sample, approved_stats)
+
     cat_type = CategoricalDtype(categories=config.COURSE_NAMES)
     new_sample.course = new_sample.course.astype(cat_type)
+    new_sample = new_sample.reindex(columns=model_features)
+
     return new_sample
+
+
+# def preprocess_input_features(features: dict) -> pd.DataFrame:
+#     new_sample = features
+#     new_sample = pd.DataFrame([new_sample])
+#     cat_type = CategoricalDtype(categories=config.COURSE_NAMES)
+#     new_sample.course = new_sample.course.astype(cat_type)
+#     return new_sample
 
 
 def predict_approval(new_data: pd.DataFrame) -> float:
@@ -36,11 +50,11 @@ def predict_approval(new_data: pd.DataFrame) -> float:
     Returns:
         prediction of approval as a float probability
     """
-    new_data = preprocess_input_features(new_data)
+    new_data = preprocess_input_features2(new_data, model_features=MODEL_FEATURES)
     predictions = model.predict_proba(new_data)
     approval_prob = predictions[0][1]
 
-    return round(float(approval_prob), ndigits=2)
+    return round(float(approval_prob), ndigits=3)
 
 
 if __name__=="__main__":
@@ -55,9 +69,9 @@ if __name__=="__main__":
                     "escore_bruto_p1_etapa3": 7.14,
                     "escore_bruto_p2_etapa3": 76.636,
                     #"nota_redacao_etapa3": 9.931,
-                    "pseudo_argumento_final": 70.36833333333334,
-                    "min_flag": True,
-                    "median_flag": True,
+                    #"pseudo_argumento_final": 70.36833333333334,
+                    #"min_flag": True,
+                    #"median_flag": True,
                     #"cotista": 0,
                     "cotas_negros_flag": 0,
                     #"publicas_flag": 0,
