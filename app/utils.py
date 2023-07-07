@@ -4,7 +4,7 @@ import pickle
 import config
 
 
-with open('../models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
+with open('models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
     model = pickle.load(f)
 
 
