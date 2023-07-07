@@ -23,20 +23,22 @@ def preprocess_input_features(features: dict) -> pd.DataFrame:
     return new_sample
 
 
-def predict_approval(new_data: pd.DataFrame):
+def predict_approval(new_data: pd.DataFrame) -> float:
+    """Predicts the probability of approval.
     
+    Computes the probability of the student of approval according to
+    input data
+    
+    Args:
+        new_data:pandas Dataframe as a single row that has the features values
+            of the student
+
+    Returns:
+        prediction of approval as a float probability
+    """
     new_data = preprocess_input_features(new_data)
-    
-    # Predict diabetes
     predictions = model.predict_proba(new_data)
     approval_prob = predictions[0][1]
-
-    #pred_to_label = {0: 'Negative', 1: 'Positive'}
-
-    # Make a list of predictions
-    #data = []
-    #for t, pred in zip(new_data, predictions):
-    #    data.append({'prediction': pred[0]})
 
     return round(float(approval_prob), ndigits=2)
 

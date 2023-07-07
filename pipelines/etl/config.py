@@ -1,6 +1,5 @@
 SCORES_PDF = ["../../data/raw/2020_2022/Ed_30_PAS_3_2020_2022_Res_Final_Tipo D_Redação.pdf",
-              "../../data/raw/2019_2021/Ed_30_PAS_3_2019_2021_Res_Final_Tipo D_Redação.pdf",
-              "../../data/raw/2018_2020/ED_37_PAS_3 _2018 -2020_Final_Tipo_D_Redacao.pdf"]
+              "../../data/raw/2019_2021/Ed_30_PAS_3_2019_2021_Res_Final_Tipo D_Redação.pdf"]
 SCORES_COLUMN_NAMES = ['numero_inscricao',
                         'nome',
                         'escore_bruto_p1_etapa1',
@@ -28,8 +27,7 @@ SCORES_COLUMN_NAMES = ['numero_inscricao',
 APPROVALS_PDF = ["../../data/raw/2020_2022/Ed_35_PAS_3_2020_2022_Rel_Final_RA_1ª_Chamada.pdf",
                  "../../data/raw/2020_2022/Ed_46_PAS_3_2020_2022_Rel_Prov_RA_1ª_Chamada_2º_Semestre.pdf",
                  "../../data/raw/2019_2021/Ed_35_PAS_3_2019_2021_Rel_Final_Registro_1ª_Chamada.pdf",
-                 "../../data/raw/2019_2021/Ed_50_PAS_3_2019_2021_Rel_Final_RA_1ª_Chamada_2º_Semestre.pdf",
-                 "../../data/raw/2018_2020/ED_41_PAS_3 _2018 -2020_Rel_Final_Registro_1ª_Chamada.pdf"]
+                 "../../data/raw/2019_2021/Ed_50_PAS_3_2019_2021_Rel_Final_RA_1ª_Chamada_2º_Semestre.pdf"]
 
 APPROVALS_COLUMNS_NAMES = ['nome',
                            'numero_inscricao',

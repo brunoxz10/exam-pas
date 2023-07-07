@@ -4,7 +4,7 @@ import re
 
 
 def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
-        
+    """Adds flag column to each type of affirmative quota"""        
     df['cotista'] = df[cotas_columns].notnull().any(axis=1).astype(int)
     
     for column in cotas_columns:
@@ -19,12 +19,14 @@ def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
 
 
 def add_label(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
+    """Adds the target variable, i.e., approved or not approved"""
     df = pd.merge(df1, df2, how='left', on='numero_inscricao', indicator=True)
     df['label'] = df._merge.apply(lambda x: 1 if x == 'both' else 0)
     return df
 
 
 def convert_string_to_float(df, colnames):
+    """Converts string columns to float"""
     for colname in colnames:
         df[colname] = df[colname].str.replace(' ', "", regex=True)
         df[colname] = df[colname].str.replace('[R$]', "", regex=True)
@@ -34,6 +36,7 @@ def convert_string_to_float(df, colnames):
 
 
 def add_pseudo_argumento_final(df):
+    """Adds feature that is a weighted average of the main exam components"""
     df["pseudo_argumento_final"] = (
         df["escore_bruto_p2_etapa1"]
         + 2 * df["escore_bruto_p2_etapa2"]
@@ -44,6 +47,18 @@ def add_pseudo_argumento_final(df):
 
 
 def get_approved_stats(df: pd.DataFrame):
+    """Gets statistics of scores of approved students.
+    
+    Computes mean, median, min, max, std statistics of approved students of
+    the previous subprogram. This will be used to create features for the
+    students of the curren subprogram
+
+    Args:
+        df: dataframe of approved students with theis scores
+
+    Returns:
+        pandas DataFrame
+    """
     df_approved = df[df.label == 1]
     approved_stats = df_approved.groupby(["course"], as_index=False).agg(
         {"pseudo_argumento_final": ["mean", "median", "min", "max", "std"]}
@@ -57,7 +72,7 @@ def get_approved_stats(df: pd.DataFrame):
 
 
 def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame:
-    
+    """Adds statistics flags according to the data of previous subprogram"""
     df = pd.merge(df, df_stats, on='course', how='left')
     df['min_flag'] = df['pseudo_argumento_final'] > df['min']
     df['max_flag'] = df['pseudo_argumento_final'] > df['max']
