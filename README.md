@@ -34,20 +34,20 @@ O formato do input das features que o usuárop deve fornecer segue a seguinte es
 ```
 
 Em que:
-* escore_bruto_p1_etapa1: escore bruto da parte 1 na primeira etapa;
-* escore_bruto_p2_etapa1: escore bruto da parte 1 na primeira etapa;
-* escore_bruto_p1_etapa2: escore bruto da parte 1 na segunda etapa;
-* escore_bruto_p2_etapa2: escore bruto da parte 2 na segunda etapa;
-* escore_bruto_p1_etapa3: escore bruto da parte 2 na terceira etapa;
-* escore_bruto_p1_etapa3: escore bruto da parte 2 na terceira etapa;
-* cotas_negros_flag: indica se faz parte de Sistema de Cotas para Negros;
-* publicas1_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
-* publicas2_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
-* publicas3_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
-* publicas4_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
-* publicas5_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
-* publicas6_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
-* publicas7_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
-* publicas8_flag: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência.
+* **escore_bruto_p1_etapa1**: escore bruto da parte 1 na primeira etapa;
+* **escore_bruto_p2_etapa1**: escore bruto da parte 1 na primeira etapa;
+* **escore_bruto_p1_etapa2**: escore bruto da parte 1 na segunda etapa;
+* **escore_bruto_p2_etapa2**: escore bruto da parte 2 na segunda etapa;
+* **escore_bruto_p1_etapa3**: escore bruto da parte 2 na terceira etapa;
+* **escore_bruto_p1_etapa3**: escore bruto da parte 2 na terceira etapa;
+* **cotas_negros_flag**: indica se faz parte de Sistema de Cotas para Negros;
+* **publicas1_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
+* **publicas2_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
+* **publicas3_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
+* **publicas4_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
+* **publicas5_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
+* **publicas6_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
+* **publicas7_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
+* **publicas8_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência.
 
 ![post_example](reports/figures/prediction_post_example.PNG)
