@@ -10,9 +10,9 @@ As *features* que alimentam o modelo se dividem em dois tipos:
 1. *features* de escores em cada etapa do exame, flags que indicam se o candidato se enquadra em um algum sistema de cota, curso desejado que são informações diretamente entregues pelo Cebraspe
 
 2. *features* derivadas após *feature engineering*: 
-    * Pseudo Argumento Final (PAF): essa medida consiste em uma média ponderada dos escores das partes principais partes do exame;
-    * Mínimo Flag: medida que indica se o candidato obteve um PAF maior que o mínimo dos PAF's do subprograma anterior no curso desejado;
-    * Mediana Flag: medida que indica se o candidato obteve um PAF maior que a mediana dos PAF's do subprograma anterior no curso desejado;
+    * **Pseudo Argumento Final (PAF)**: essa medida consiste em uma média ponderada dos escores das principais partes do exame;
+    * **Mínimo Flag**: medida que indica se o candidato obteve um PAF maior que o mínimo dos PAF's do subprograma anterior no curso desejado;
+    * **Mediana Flag**: medida que indica se o candidato obteve um PAF maior que a mediana dos PAF's do subprograma anterior no curso desejado;
 
 Após a construção das *features*, um modelo *Extreme Gradient Boosting (XGBoost)* é ajustado. Os dados dos subprogramas 2019-2021 e 2020-2022 foram utilizados do seguinte modo: para treinamento, dados de ambos os subprogramas são considerados, mas o conjunto de dados de teste só apresenta observações de 2020-2022.
 
@@ -52,10 +52,10 @@ Em que:
 * **publicas1_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
 * **publicas2_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
 * **publicas3_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
-* **publicas4_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
-* **publicas5_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
-* **publicas6_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
-* **publicas7_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
-* **publicas8_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, candidatos com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência.
+* **publicas4_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta igual ou inferior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
+* **publicas5_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas;
+* **publicas6_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta superior a 1,5 salário mínimo per capita que se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência;
+* **publicas7_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas;
+* **publicas8_flag**: indica se faz parte de Sistema de Cotas para Escolas Públicas, com renda familiar bruta superior a 1,5 salário mínimo per capita que não se autodeclararam pretos, pardos ou indígenas e que concorrem como pessoas com deficiência.
 
 ![post_example](reports/figures/prediction_post_example.PNG)

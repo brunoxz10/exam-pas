@@ -4,7 +4,7 @@ import re
 
 
 def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
-    """Adds flag column to each type of affirmative quota"""        
+    """Adds flag column to each type of affirmative quota."""        
     df['cotista'] = df[cotas_columns].notnull().any(axis=1).astype(int)
     
     for column in cotas_columns:
@@ -19,14 +19,14 @@ def add_cotas_flags(df: pd.DataFrame, cotas_columns: list) -> pd.DataFrame:
 
 
 def add_label(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
-    """Adds the target variable, i.e., approved or not approved"""
+    """Adds the target variable, i.e., approved or not approved."""
     df = pd.merge(df1, df2, how='left', on='numero_inscricao', indicator=True)
     df['label'] = df._merge.apply(lambda x: 1 if x == 'both' else 0)
     return df
 
 
-def convert_string_to_float(df, colnames):
-    """Converts string columns to float"""
+def convert_string_to_float(df: pd.DataFrame, colnames: list) -> pd.DataFrame:
+    """Converts list of string columns to float."""
     for colname in colnames:
         df[colname] = df[colname].str.replace(' ', "", regex=True)
         df[colname] = df[colname].str.replace('[R$]', "", regex=True)
@@ -35,8 +35,12 @@ def convert_string_to_float(df, colnames):
     return df
 
 
-def add_pseudo_argumento_final(df):
-    """Adds feature that is a weighted average of the main exam components"""
+def add_pseudo_argumento_final(df: pd.DataFrame) -> pd.DataFrame:
+    """Adds feature that is a weighted average of the main exam components.
+    
+    Computes the Pseudo Argumento Final (PAF) which is a engineered feature
+    that is a proxy for the true Argumento Final.
+    """
     df["pseudo_argumento_final"] = (
         df["escore_bruto_p2_etapa1"]
         + 2 * df["escore_bruto_p2_etapa2"]
@@ -46,18 +50,18 @@ def add_pseudo_argumento_final(df):
     return df
 
 
-def get_approved_stats(df: pd.DataFrame):
+def get_approved_stats(df: pd.DataFrame) -> pd.DataFrame:
     """Gets statistics of scores of approved students.
     
     Computes mean, median, min, max, std statistics of approved students of
     the previous subprogram. This will be used to create features for the
-    students of the curren subprogram
+    students of the curren subprogram.
 
     Args:
-        df: dataframe of approved students with theis scores
+        df: dataframe of approved students with their scores.
 
     Returns:
-        pandas DataFrame
+        A pandas DataFrame.
     """
     df_approved = df[df.label == 1]
     approved_stats = df_approved.groupby(["course"], as_index=False).agg(
@@ -71,8 +75,23 @@ def get_approved_stats(df: pd.DataFrame):
     return approved_stats
 
 
-def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame:
-    """Adds statistics flags according to the data of previous subprogram"""
+def add_stats_features(
+        df: pd.DataFrame,
+        df_stats: pd.DataFrame,
+) -> pd.DataFrame:
+    """Adds statistics flags according to the data of previous subprogram.
+    
+    Joins the summary statistics of Pseudo Argumento Final of the as dataframe
+    that should have the data of the previous subprogram. Adds the final
+    engineered features that are flags.
+
+    Args:
+        df: data of students of the current subprogram.
+        df_stats: summary statistics of PAF of the previous subprogram.
+
+    Returns:
+        A pandas dataframe as the final processed data.
+    """
     df = pd.merge(df, df_stats, on='course', how='left')
     df['min_flag'] = df['pseudo_argumento_final'] > df['min']
     df['max_flag'] = df['pseudo_argumento_final'] > df['max']
@@ -82,7 +101,10 @@ def add_stats_features(df: pd.DataFrame, df_stats: pd.DataFrame) -> pd.DataFrame
     return df
 
 
-def build_features_wrapper(scores_file_path, approvals_file_path):
+def build_features_wrapper(
+    scores_file_path: str,
+    approvals_file_path: str,
+) -> pd.DataFrame:
     
     scores = pd.read_parquet(scores_file_path)
     approvals = pd.read_parquet(approvals_file_path)
