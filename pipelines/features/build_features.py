@@ -51,17 +51,17 @@ def add_pseudo_argumento_final(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_approved_stats(df: pd.DataFrame) -> pd.DataFrame:
-    """Gets statistics of scores of approved students.
+    """Gets statistics of scores of approved students grouped by course.
     
     Computes mean, median, min, max, std statistics of approved students of
-    the previous subprogram. This will be used to create features for the
-    students of the curren subprogram.
+    the previous subprogram grouped by course. This will be used to create
+    features for the students of the curren subprogram.
 
     Args:
         df: dataframe of approved students with their scores.
 
     Returns:
-        A pandas DataFrame.
+        A pandas DataFrame with summary statistics for each course.
     """
     df_approved = df[df.label == 1]
     approved_stats = df_approved.groupby(["course"], as_index=False).agg(
