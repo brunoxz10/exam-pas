@@ -9,20 +9,20 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-df_scores = pd.read_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
-df_scores = df_scores[config.RESULTS_INFO]
+#df_scores = pd.read_parquet('../data/processed/scores_approvals_convocation_2020_2022.parquet')
+#df_scores = df_scores[config.RESULTS_INFO]
 
-@app.route('/filter', methods=['GET']) 
-def filter_dataframe():
-    numero_inscricao = request.args.get('numero_inscricao')  # Get 'name' parameter from the request
+# @app.route('/filter', methods=['GET']) 
+# def filter_dataframe():
+#     numero_inscricao = request.args.get('numero_inscricao')  # Get 'name' parameter from the request
 
-    if numero_inscricao:
-        filtered_df = df_scores[df_scores['numero_inscricao'] == numero_inscricao]  # Filter DataFrame based on 'name'
-        result = filtered_df.to_dict('records')
-    else:
-        result = df_scores.to_dict('records')  # Return the entire DataFrame if 'name' parameter is not provided
+#     if numero_inscricao:
+#         filtered_df = df_scores[df_scores['numero_inscricao'] == numero_inscricao]  # Filter DataFrame based on 'name'
+#         result = filtered_df.to_dict('records')
+#     else:
+#         result = df_scores.to_dict('records')  # Return the entire DataFrame if 'name' parameter is not provided
 
-    return jsonify(result)
+#     return jsonify(result)
 
 
 @app.post('/predict') 
