@@ -1,19 +1,17 @@
 import pandas as pd
 from pandas.api.types import CategoricalDtype
 import pickle
-import config
+from app import config
 
-import sys
-sys.path.append("../pipelines/")
-from models.config import FEATURES as MODEL_FEATURES
-from features.build_features import add_stats_features, add_pseudo_argumento_final
+from pipelines.models.config import FEATURES as MODEL_FEATURES
+from pipelines.features.build_features import add_stats_features, add_pseudo_argumento_final
 
 
 with open('models/xgboost_categorical_not_calibrated.pickle', 'rb') as f:
     model = pickle.load(f)
 
 
-approved_stats = pd.read_parquet('../data/interim/approved_stats_convocation_2019_2021.parquet')
+approved_stats = pd.read_parquet('data/interim/approved_stats_convocation_2019_2021.parquet')
 
 def preprocess_input_features2(
         user_features: dict,

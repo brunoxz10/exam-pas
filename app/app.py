@@ -1,13 +1,8 @@
-import json
-import pandas as pd
-from flask import Flask, jsonify, request, render_template
-from utils import predict_approval
 import datetime
-import config
 from flask_cors import CORS
-import sys
-sys.path.append('../pipelines/')
-from models.config import FEATURES, COURSE_NAMES
+from flask import Flask, jsonify, request, render_template
+from app.utils import predict_approval
+from pipelines.models.config import FEATURES, COURSE_NAMES
 
 app = Flask(__name__, template_folder='template', static_folder='template/assets')
 CORS(app)

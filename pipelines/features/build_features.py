@@ -1,4 +1,4 @@
-import config
+from pipelines.features import config
 import pandas as pd
 import re 
 
